@@ -1,8 +1,8 @@
 export default function Cards({ item }) {
   return (
     <>
-      <div className="mt-4 my-3 p-3">
-        <div className="card w-92 bg-base-100 shadow-xl hover:scale-105 duration-200 mt-5 ml-6 z-0 ">
+      <div className="mt-3 my-1 w-11/12 p-1 ">
+        <div className="card w-92 bg-base-100 shadow-xl hover:scale-105 duration-200 mt-5 ml-6 z-0 dark:bg-slate-900 dark:text-white dark:border ">
           <figure>
             <img src={item.image} alt="book" />
           </figure>

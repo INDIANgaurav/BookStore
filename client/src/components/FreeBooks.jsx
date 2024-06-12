@@ -5,21 +5,21 @@ import list from "../../public/list.json";
 import Cards from "./Cards";
 const FreeBooks = () => {
   const freeBooks = list.filter((books) => books.category === "Free");
-  console.log("your freee books ->", freeBooks);
+  // console.log("your freee books ->", freeBooks);
 
   var settings = {
     dots: true,
-    infinite: false,
+    infinite: true,
     speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 3,
+    slidesToShow: 4,
+    slidesToScroll: 4,
     initialSlide: 0,
     responsive: [
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
+          slidesToShow: 4,
+          slidesToScroll: 4,
           infinite: true,
           dots: true,
         },
@@ -43,24 +43,21 @@ const FreeBooks = () => {
   };
   return (
     <>
-      <div className="mx-w-screen-2xl container mx-auto md:px-20   px-4">
+      <div className="  mx-auto md:px-20   px-4">
         <div>
           <h1 className="font-semibold text-xl pb-2  ">Free Offered Books</h1>
           <p>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi
             laboriosam nulla quisquam. Lorem ipsum dolor sit.
           </p>
-       
-      </div>
-      <div>
-        <Slider {...settings}>
-          {
-            freeBooks.map((item) => (
-                <Cards item={item} key={item.id} />
-            ))
-          }
-        </Slider>
-      </div>
+        </div>
+        <div className="ml-6 md:ml-24">
+          <Slider {...settings}>
+            {freeBooks.map((item) => (
+              <Cards item={item} key={item.id} />
+            ))}
+          </Slider>
+        </div>
       </div>
     </>
   );

@@ -5,7 +5,7 @@ import FreeBooks from "../components/FreeBooks";
 import Navbar from "../components/Navbar";
 const Home = () => {
   return (
-    <div>
+    <div className="w-11/12">
       <Navbar />
       <Banner />
       <FreeBooks />
