@@ -1,7 +1,12 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Login from "./Login";
+import axios from "axios";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 const Signup = () => {
+  const location = useLocation() ;
+  const Navigate = useNavigate()
+  const from = location.state?.from?.pathname || "/"
   const {
     register,
     handleSubmit,
@@ -9,7 +14,28 @@ const Signup = () => {
   } = useForm();
   console.log("i am here");
 
-  const onSubmit = (data) => console.log("this is your form data ->", data);
+  const onSubmit = async (data) =>{
+    const userInfo = {
+      fullname : data.fullname,
+      email : data.email,
+      password :  data.password,
+      confirmPassword : data.confirmPassword,
+    }
+  await axios.post("http://localhost:5001/user/signup",userInfo)
+  .then((res) => {
+    console.log(res.data)
+    if(res.data){
+      toast.success("signup successfully");
+      Navigate(from , {replace:true})
+     }
+    localStorage.setItem("users" , JSON.stringify(res.data) )
+    window.location.reload() ;
+  }).catch((err)=>{
+    console.log(err)
+    toast.error("error: " + err)
+  })
+   
+  }
   return (
     <div className=" w-11/12 h-screen flex   justify-center items-center">
       <div className="modal-box  ">
@@ -20,7 +46,7 @@ const Signup = () => {
 
           <Link
             to="/"
-            className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+            className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 dark:text-black"
           >
             ✕
           </Link>
@@ -31,19 +57,19 @@ const Signup = () => {
           <br />
           <input
             type="text"
-            className="w-80 px-3 py-1 border rounded-md outline-none"
+            className="w-80 px-3 py-1 border rounded-md outline-none dark:text-black"
             placeholder="Enter your name"
-            {...register("name", { required: true })}
+            {...register("fullname", { required: true })}
           />
            <br />
-           {errors.name && <span className="text-pink-500">This field is required*</span>}
+           {errors.fullname && <span className="text-pink-500">This field is required*</span>}
         </div>
         <div className="mt-4 space-y-2">
           <span>Email :-</span>
           <br />
           <input
             type="email"
-            className="w-80 px-3 py-1 border rounded-md outline-none"
+            className="w-80 px-3 py-1 border rounded-md outline-none dark:text-black"
             placeholder="Enter your email"
             {...register("email", { required: true })}
           />
@@ -55,7 +81,7 @@ const Signup = () => {
           <br />
           <input
             type="password"
-            className="w-80 px-3 py-1 border rounded-md outline-none"
+            className="w-80 px-3 py-1 border rounded-md outline-none dark:text-black"
             placeholder="Enter your Password"
             {...register("password", { required: true })}
           />
@@ -67,7 +93,7 @@ const Signup = () => {
           <br />
           <input
             type="password"
-            className="w-80 px-3 py-1 border rounded-md outline-none"
+            className="w-80 px-3 py-1 border rounded-md outline-none dark:text-black"
             placeholder="Enter your Password"
             {...register("password", { required: true })}
           />
@@ -85,7 +111,7 @@ const Signup = () => {
           </button>
           </div>
           <div >
-            <p  >
+            <p className="dark:text-black" >
               already registered?{" "}
               <button
                 className="text-blue-500 
